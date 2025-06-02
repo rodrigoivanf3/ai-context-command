@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,13 +22,11 @@ interface ChatInterfaceProps {
 export const ChatInterface = ({ messages, setMessages, onNewChat }: ChatInterfaceProps) => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   const scrollToBottom = () => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -151,7 +148,7 @@ export const ChatInterface = ({ messages, setMessages, onNewChat }: ChatInterfac
         </div>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col gap-4">
-        <ScrollArea className="flex-1 w-full rounded-md border border-white/20 p-4" ref={scrollAreaRef}>
+        <ScrollArea className="flex-1 w-full rounded-md border border-white/20 p-4">
           <div className="space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-gray-400 py-8">
@@ -212,6 +209,7 @@ export const ChatInterface = ({ messages, setMessages, onNewChat }: ChatInterfac
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
         </ScrollArea>
         
