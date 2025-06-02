@@ -7,8 +7,20 @@ import { Settings, MessageSquare, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
 const Index = () => {
   const [activeTab, setActiveTab] = useState("chat");
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const handleNewChat = () => {
+    setMessages([]);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
@@ -39,7 +51,11 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="chat">
-            <ChatInterface />
+            <ChatInterface 
+              messages={messages}
+              setMessages={setMessages}
+              onNewChat={handleNewChat}
+            />
           </TabsContent>
 
           <TabsContent value="settings">
