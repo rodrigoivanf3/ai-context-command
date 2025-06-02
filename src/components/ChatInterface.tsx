@@ -141,9 +141,9 @@ export const ChatInterface = ({ messages, setMessages, onNewChat }: ChatInterfac
           </CardTitle>
           <Button
             onClick={onNewChat}
-            variant="outline"
+            variant="secondary"
             size="sm"
-            className="border-white/20 text-white hover:bg-white/10 flex items-center gap-2"
+            className="bg-white/20 text-white hover:bg-white/30 border-white/40 flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             New Chat
